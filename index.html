@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			table{
+				border-collapse:collapse;
+			}
+			th,td{
+				border: 1px solid black;
+				padding: 10px; 5px
+			}
+			form{
+				margin-top:50px;
+				display: flex;
+				flex-direction: column;
+				width: 200px;
+				margin:auto
+			}
+		</style>
+	</head>
+	<body>
+		Products
+		<table>
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>name</th>
+					<th>type</th>
+					<th>group</th>
+				</tr>
+			</thead>
+			<tbody>
+				
+			</tbody>
+		</table>
+
+		<form method="POST" action="/products">
+			<input type="text" name="name" />
+			<input type="text" name="type" />
+			<input type="text" name="group" />
+			<button type="submit">Add</button>
+		</form>
+
+		<script>
+			fetch("/api/products")
+				.then((res) => res.json())
+				.then((res) => {
+					for(let i = 0; i < res.length; i++){
+						renderProduct(res[i])//<tr><td></td></tr>
+					}
+				});
+
+			function renderProduct(product){
+				const tr = document.createElement("tr");
+				const id = document.createElement("td")
+				id.innerText = product.id;
+				const tdName = document.createElement("td");
+				tdName.innerText = product.name;
+				const tdType = document.createElement("td");
+				tdType.innerText = product.type;
+				const tdGroup = document.createElement("td");
+				tdGroup.innerText = product.group;
+				tr.append(id, tdName, tdType, tdGroup);
+				let tbody = document.querySelector("tbody");
+				tbody.append(tr);
+			}
+		</script>
+	</body>
+</html>
