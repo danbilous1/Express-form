@@ -1,5 +1,5 @@
 # Express Form
-It was made with Express Library
+Project is made with Express Library.
 
 # Features
 Add your product with 3 inputs (Name, Type, Group).
