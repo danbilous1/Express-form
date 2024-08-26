@@ -38,20 +38,24 @@
 			</tbody>
 		</table>
 
-		<form method="POST" action="/products">
-			<input type="text" name="name" />
-			<input type="text" name="type" />
-			<input type="text" name="group" />
+		<form method="POST" action="/products" id='form'>
+			<input type="text" name="name" class="name"/>
+			<input type="text" name="type" class="type"/>
+			<input type="text" name="group" class="group"/>
 			<button type="submit">Add</button>
 		</form>
 
 		<script>
+			let lastId = null;
 			fetch("/api/products")
 				.then((res) => res.json())
 				.then((res) => {
 					for(let i = 0; i < res.length; i++){
 						renderProduct(res[i])//<tr><td></td></tr>
 					}
+					lastId = res.at(-1).id;
+					//res[1] == res.at(1)
+					//res[res.length-1] == res.at(-1)
 				});
 
 			function renderProduct(product){
@@ -69,6 +73,7 @@
 				tbody.append(tr);
 			}
 
+
 			let form = document.querySelector('#form');
 
 			form.addEventListener("submit", (e) => {
@@ -79,15 +84,34 @@
 						type: document.querySelector('.type').value,
 						group: document.querySelector('.group').value
 				};
+				fetch("/api/products", {
+					method: 'POST',
+					headers: {
+						"Content-Type":"application/json",
+						Accept: "application/json"
+					},
+					body: JSON.stringify(newProduct)
+				})
+					.then((res) => res.json())
+					.then(async (res) => {
+						//user alraeady have 3 products
+						if(lastId + 1 !== res.id){//how we know we have gap
+							console.log('we have gap')
 
-				fetch("/api/products", {})
-				.then((res) => res.json())
-				.then(async (res) => {
-					// working on updating form without reloading
-					renderProduct(res);
-				});
+							 for (let i = lastId + 1; i < res.id; i++) {
+								 await fetch(`/api/products/${i}`)
+								.then((res) => res.json())
+								.then((res) => {
+									renderProduct(res);
+								})
+							}
+						}
+						//but when new product recieved after post user get id:6
+						//so it is clear that id:4 and id:5 is missing in UI
+						lastId = res.id;
+						renderProduct(res);
+					});
 			});
-			}
 		</script>
 	</body>
 </html>
