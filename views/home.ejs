@@ -1,1 +1,30 @@
+<!doctype html>
+<html lang="en">
+	<%- include("components/head") %>
+	<body>
+		Products 
+		<table>
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>name</th>
+					<th>type</th>
+					<th>group</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% products.forEach(product => { %>
+					<%- include("components/product", {product}) %>
+				<% }) %>
+			</tbody>
+		</table>
 
+
+	 <%- include('components/form') %>
+		 <script>
+			let lastId = <%= products.at(-1).id %>;
+		 </script>
+		 
+		<script src='./scripts/home.js' type='module'></script>
+	</body>
+</html>
