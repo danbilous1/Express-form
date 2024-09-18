@@ -1,0 +1,26 @@
+<button class='btn btn-success' id="button">create</button>
+
+<form  id='form' class="d-none">
+  <input type="text" name="name" class="name"/>
+  <input type="text" name="type" class="type"/>
+  <input type="text" name="group" class="group"/>
+  <div class='row'>
+    <button class='btn btn-warning' id='cancel'>Cancel</button>
+    <button class='btn btn-primary' type="submit">Add</button>
+    </div>
+</form>
+
+<script>
+  let button = document.querySelector("button");
+  let cancelBtn = document.querySelector('#cancel');
+
+  cancelBtn.addEventListener('click', function() {
+      form.classList.add('d-none');
+      button.classList.remove("d-none");
+  })
+  button.addEventListener('click', function() {
+    form.classList.remove('d-none');
+    button.classList.add("d-none");
+  })
+  
+</script>
