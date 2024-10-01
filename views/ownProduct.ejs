@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en">
+  <%- include("components/head") %>
+
+<body>
+  <a href="/"><button>Back</button></a>
+  <% for (let info in product) { %>
+    <p><%= info %>: <%= product[info] %></p>
+  <% } %>
+</body>
+
+
+
+</html>
