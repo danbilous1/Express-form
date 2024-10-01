@@ -1,11 +1,29 @@
 <button class='btn btn-success' id="button">create</button>
 
-<form  id='form' class="d-none">
-  <input type="text" name="name" class="name"/>
-  <input type="text" name="type" class="type"/>
-  <input type="text" name="group" class="group"/>
+<form  id='form' class="d-none" novalidate>
+  <div class="col-md-4">
+  <input type="text" name="name" class="name mb-1" required pattern="[A-Za-z]+"/>
+  <div class="valid-feedback">
+    Looks good!
+  </div>
+  <div class="invalid-feedback">
+    Please choose a username.
+  </div>
+  </div>
+  <input type="text" name="type" class="type mb-1" list="types" required pattern="[A-Za-z]+"/>
+  <datalist id="types"> 
+    <% types.forEach(type => { %>
+      <option value="<%- type %>">
+    <% }) %>
+  </datalist>
+  <input type="text" name="group" class="group mb-4" list="groups" required pattern="[A-Za-z]+"/>
+      <datalist id="groups">
+        <% groups.forEach(group => { %>
+          <option value="<%- group %>">
+        <% }) %>
+      </datalist>
   <div class='row'>
-    <button class='btn btn-warning' id='cancel'>Cancel</button>
+    <button class='btn btn-warning mb-2' id='cancel'>Cancel</button>
     <button class='btn btn-primary' type="submit">Add</button>
     </div>
 </form>
@@ -13,6 +31,7 @@
 <script>
   let button = document.querySelector("button");
   let cancelBtn = document.querySelector('#cancel');
+  console.log(button);
 
   cancelBtn.addEventListener('click', function() {
       form.classList.add('d-none');
@@ -22,5 +41,5 @@
     form.classList.remove('d-none');
     button.classList.add("d-none");
   })
-  
+
 </script>
