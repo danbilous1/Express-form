@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en">
 	<%- include("components/head") %>
-	<body>
-		Products 
-		<table>
+	<body class="m-3">
+		<h2 class="mb-2">Products</h2>
+		<table class="mb-4">
 			<thead>
 				<tr>
 					<th>id</th>
@@ -20,11 +20,11 @@
 		</table>
 
 
-	 <%- include('components/form') %>
+	 <%- include('components/form', {groups,types}) %>
 		 <script>
 			let lastId = <%= products.at(-1).id %>;
 		 </script>
-		 
+
 		<script src='./scripts/home.js' type='module'></script>
 	</body>
 </html>
