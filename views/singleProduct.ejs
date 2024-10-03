@@ -4,7 +4,9 @@
 
 <body>
 	<a href="/"><button>Back</button></a>
-	<%= JSON.stringify(product) %>
+	<% for (let key in product['nutritions']) { %>
+		<p><%= key %>: <%= product['nutritions'][key] %></p>
+	<% } %>
 </body>
 
 
